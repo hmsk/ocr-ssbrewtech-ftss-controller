@@ -14,13 +14,13 @@ class BrewtechOCRRunner
   def capture
     `raspistill -gs square -o #{@path_for_captured_image} -sh #{SHARPNESS} -ISO #{ISO} -rot #{ROTATION}`
     image = MiniMagick::Image.open(@path_for_captured_image)
-    image.crop '1156x598+425+700'
+    image.crop '1170x598+406+680'
     image.write @path_for_cropped_image
   end
 
   def report_temperature
-    temperature = `ssocr --foreground=white --background=black -d -1 #{@path_for_cropped_image} -t 80`.chomp
-    puts "temp: " + temperature
+    temperature = `ssocr --foreground=white --background=black -d 3 #{@path_for_cropped_image} -t 95`.chomp.gsub('.', '')
+    puts "temp: " + temperature.chars.insert(2, '.').join('') + " F"
   end
 end
 
