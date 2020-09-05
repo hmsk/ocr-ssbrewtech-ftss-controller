@@ -1,3 +1,5 @@
+Bundler.require(:default)
+
 class BrewtechOCRRunner
   ISO = '64'
   SHARPNESS = '100'
