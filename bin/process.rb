@@ -18,7 +18,7 @@ class BrewtechOCRRunner
   end
 
   def report_temperature
-    temperature = `ssocr --foreground=white --background=black -d -1 #{@path_for_cropped_image} -t 80`
+    temperature = `ssocr --foreground=white --background=black -d -1 #{@path_for_cropped_image} -t 80`.chomp
     p temperature
   end
 end
