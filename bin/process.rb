@@ -28,12 +28,7 @@ class BrewtechOCRRunner
   end
 
   def issue_webhook(temp)
-    uri = URI.parse(@config['webhook'])
-    header = {'Content-Type': 'text/json'}
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Post.new(uri.request_uri, header)
-    request.body = { message: temp }.to_json
-    http.request(request)
+    Net::HTTP.post_form(URI(@config['webhook']), message: temp)
   end
 end
 
