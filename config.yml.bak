@@ -1,0 +1,11 @@
+camera:
+  iso: 64
+  sharpness: 100
+  rotation: 90
+crop:
+  width: 1170
+  height: 598
+  x: 406
+  y: 680
+ocr:
+  threshold: 95
