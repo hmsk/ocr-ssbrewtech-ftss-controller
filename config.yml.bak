@@ -9,3 +9,4 @@ crop:
   y: 680
 ocr:
   threshold: 95
+webhook: https://localhost:8000/webhooks/new

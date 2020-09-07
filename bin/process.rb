@@ -1,4 +1,5 @@
 Bundler.require(:default)
+require 'net/http'
 
 class BrewtechOCRRunner
   def initialize(path = Dir.pwd)
@@ -20,8 +21,19 @@ class BrewtechOCRRunner
   end
 
   def report_temperature
-    temperature = `ssocr --foreground=white --background=black -d 3 #{@path_for_cropped_image} -t #{@config['ocr']['threshold']}`.chomp.gsub('.', '')
-    puts "temp: " + temperature.chars.insert(2, '.').join('') + " F"
+    temperature = `ssocr --foreground=white --background=black -d -1 #{@path_for_cropped_image} -t #{@config['ocr']['threshold']}`.chomp.gsub('.', '')
+    temp_text = temperature.chars.insert(2, '.').join('') + " F"
+    puts temp_text
+    issue_webhook(temp_text) if @config['webhook'] && temperature.to_i
+  end
+
+  def issue_webhook(temp)
+    uri = URI.parse(@config['webhook'])
+    header = {'Content-Type': 'text/json'}
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request.body = { message: temp }.to_json
+    http.request(request)
   end
 end
 

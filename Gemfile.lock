@@ -1,14 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    json (2.3.1)
     mini_magick (4.10.1)
+    uri (0.10.0)
     yaml (0.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   mini_magick
+  uri
   yaml
 
 BUNDLED WITH
